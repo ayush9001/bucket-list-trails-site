@@ -1,0 +1,1 @@
+Add photos as slide1.jpg, slide2.jpg, slide3.jpg.
