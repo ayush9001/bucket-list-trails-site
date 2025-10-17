@@ -37,9 +37,11 @@ a { text-decoration: none; color: inherit; }
 header {
   position: sticky;
   top: 0;
-  background: #ffffffd9;
-  backdrop-filter: saturate(160%) blur(10px);
-  border-bottom: 1px solid #eee;
+  /* warm sunrise gradient inspired by favicon */
+  background: linear-gradient(90deg, #ffd19a 0%, #ffb48c 50%, #e99fb3 100%);
+  color: #1b1b1b;
+  backdrop-filter: saturate(120%) blur(6px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
   z-index: 10;
 }
 nav {
@@ -51,8 +53,12 @@ nav {
   padding: 10px 16px;
 }
 nav .logo { font-weight: 800; letter-spacing: .2px; }
-nav .logo span { color: var(--brand); }
+nav .logo span { color: #e65fa8; }
 nav .links { margin-left: auto; display: flex; gap: 16px; font-weight: 600; }
+
+/* Nav link colors on the warm header */
+nav .links a { color: #1b1b1b; }
+nav .links a:hover { color: #6b2552; }
 
 /* Hero */
 .hero {
@@ -183,7 +189,36 @@ footer .wrap { max-width: var(--max); margin: 0 auto; padding: 16px; color: #555
 
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; }
-  .slide { height: 240px; }
+
+  /* Keep hero height consistent with desktop to avoid needless shrinking */
+  .hero { min-height: 70vh; }
+  .hero .content { padding-top: 28px; padding-bottom: 28px; align-self: start; }
+  .hero h1 { font-size: clamp(24px, 7vw, 36px); }
+
+  /* Slightly stronger overlay for mobile */
+  .slider::after { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.08)); }
+  .dots { bottom: 10px; }
+}
+
+/* Hide some nav links on small screens */
+@media (max-width: 600px) {
+  .links .hide-on-mobile { display: none; }
+}
+
+/* Ensure slides always cover their container (prevents black bars) */
+.slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Hero-specific button styles so non-primary buttons remain visible over images */
+.hero .btn { color: #fff; }
+.hero .btn:not(.primary) { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); color: #fff; }
+
+/* For mobile we keep a smaller hero height but let JS fine-tune exact height to match images */
+@media (max-width: 600px) {
+  .hero { min-height: 55vh; }
+  .hero .content { padding-top: 28px; padding-bottom: 28px; align-self: start; }
+  .hero h1 { font-size: clamp(24px, 7vw, 36px); }
+  .slider::after { background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.06)); }
+  .dots { bottom: 10px; }
 }
 
 /* Accessibility: respect reduced motion */
