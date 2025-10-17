@@ -15,7 +15,7 @@
   <nav>
     <div class="logo">Bucket List <span>Trails</span></div>
     <div class="links">
-      <a href="#aim">About</a>
+      <!-- <a href="#aim">About</a> -->
       <a href="#trips">Upcoming Trips</a>
       <a href="#how">How it works</a>
       <a href="#contact">Contact</a>
@@ -24,14 +24,13 @@
 </header>
 <main>
   <section class="hero">
-    <div>
+    <div class="content">
       <h1>Women‑only tours — adventure, culture, comfort & connection</h1>
-      <p class="muted">Safe, well‑planned small‑group trips for 10–15 women. Explore beautiful destinations with confidence and joy.</p>
+      
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <a class="btn primary" href="#trips">View upcoming trips</a>
         <a class="btn" href="#contact">Plan a custom group</a>
       </div>
-      <p class="muted" style="margin-top:10px">Delicious food is the master key of every tour — we make sure it’s a highlight of every journey.</p>
     </div>
     <div class="slider" aria-label="Trip photo slideshow">
       <div class="slides" id="slides">
@@ -101,13 +100,21 @@
         <p><strong>Email:</strong> <a href="mailto:bucketlisttrails@gmail.com">bucketlisttrails@gmail.com</a><br>
         <strong>Phone/WhatsApp:</strong> <a href="tel:+919702464888">+91 97024 64888</a></p>
       </div>
-      <form name="contact" method="POST" data-netlify="true">
-        <input type="hidden" name="form-name" value="contact" />
-        <label>Name <input name="name" required /></label>
-        <label>Email <input type="email" name="email" required /></label>
-        <label>Message <textarea name="message" rows="5" required></textarea></label>
-        <button class="btn primary" type="submit">Send message</button>
-      </form>
+      <div class="form-card">
+        <div class="form-header">
+          <h3>Send us a message</h3>
+          <p class="muted">Use this form to ask about trips, custom groups, or booking details. We usually reply within 24 hours.</p>
+        </div>
+        <form name="contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact" />
+          <label>Name <input name="name" required /></label>
+          <label>Email <input type="email" name="email" required /></label>
+          <label>Message <textarea name="message" rows="6" required></textarea></label>
+          <div style="display:flex;justify-content:flex-end">
+            <button class="btn primary" type="submit">Send message</button>
+          </div>
+        </form>
+      </div>
     </div>
   </section>
 </main>
