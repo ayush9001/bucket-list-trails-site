@@ -228,6 +228,12 @@ section#contact h2 { text-align: left; display: block; margin: 0 0 12px; }
 }
 .muted { color: var(--muted); }
 
+/* make the short safety note in the 'How it works' section slightly whitish
+   without changing other uses of .muted */
+section#how > p.muted {
+  color: rgba(140, 140, 140, 0.88);
+}
+
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
 /* Make the trips grid adapt to 2-4 cards without leaving empty space
@@ -236,8 +242,24 @@ section#contact h2 { text-align: left; display: block; margin: 0 0 12px; }
 @media (min-width: 981px) {
   .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 }
-.card { border: 1px solid #eee; border-radius: 16px; padding: 16px; background: #fff; }
+.card {
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 16px;
+  background: #fff;
+
+  /* layout: make card a vertical flex column so the action can be pushed to the bottom */
+  display: flex;
+  flex-direction: column;
+}
 .card-img { width: 100%; height: 220px; object-fit: cover; display: block; border-radius: 12px; margin: 12px 0; }
+
+/* ensure any button inside a card sits at the card bottom regardless of content length */
+.card .btn {
+  margin-top: auto;
+  /* keep the button at its intrinsic size instead of stretching across the card */
+  align-self: flex-start;
+}
 
 /* Larger images on wider viewports to avoid vertical cropping */
 @media (min-width: 900px) {
