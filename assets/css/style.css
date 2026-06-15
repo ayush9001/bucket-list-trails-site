@@ -80,9 +80,15 @@ nav {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 16px;
+  padding: 8px 16px;
+  min-height: 56px; /* keep nav compact so brand images can't expand the header */
 }
-nav .logo { font-weight: 800; letter-spacing: .2px; }
+/* Brand: replace text with mark + wordmark images */
+nav .logo { display: flex; align-items: center; }
+nav .logo .brand { display: inline-flex; align-items: center; gap: 10px; }
+nav .logo .brand img { display: block; height: auto; }
+nav .logo .logo-mark { width: 36px; height: 36px; object-fit: contain; }
+nav .logo .logo-text { height: 28px; object-fit: contain; }
 nav .logo span { color: #e65fa8; }
 nav .links { margin-left: auto; display: flex; gap: 16px; font-weight: 600; }
 
@@ -368,6 +374,31 @@ footer .wrap { max-width: var(--max); margin: 0 auto; padding: 16px; color: #555
 @media (max-width: 600px) {
   .links .hide-on-mobile { display: none; }
 }
+
+/* Responsive adjustments for brand imagery */
+@media (max-width: 480px) {
+  nav .logo .logo-mark { width: 30px; height: 30px; }
+  nav .logo .logo-text { height: 20px; display: none; /* hide wordmark on very small screens to save space */ }
+}
+
+@media (min-width: 981px) {
+  nav .logo .logo-mark { width: 40px; height: 40px; }
+  nav .logo .logo-text { height: 34px; }
+}
+
+/* Stronger constraints to prevent oversized logos from pushing header height */
+nav .brand img {
+  max-height: 48px;
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+/* Ensure the brand vertically centers even if text size changes */
+nav .logo, nav .brand { align-items: center; }
+
+/* If an image still grows unexpectedly, cap the header */
+header { max-height: 84px; overflow: visible; }
 
 /* Ensure slides always cover their container (prevents black bars) */
 .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
