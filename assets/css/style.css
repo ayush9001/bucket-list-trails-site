@@ -240,13 +240,14 @@ section#how > p.muted {
   color: rgba(140, 140, 140, 0.88);
 }
 
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 
 /* Make the trips grid adapt to 2-4 cards without leaving empty space
    Uses auto-fit with minmax so the grid fills available space and
    each card keeps a reasonable min width. */
 @media (min-width: 981px) {
-  .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  /* Keep two columns on wider screens to avoid cramped text */
+  .grid { grid-template-columns: repeat(2, 1fr); }
 }
 .card {
   border: 1px solid #eee;
@@ -259,6 +260,33 @@ section#how > p.muted {
   flex-direction: column;
 }
 .card-img { width: 100%; height: 220px; object-fit: cover; display: block; border-radius: 12px; margin: 12px 0; }
+
+/* Small slideshow inside a card (used for Sikkim & Darjeeling card) */
+.card-slideshow { position: relative; width: 100%; border-radius: 12px; overflow: hidden; margin: 12px 0; }
+.card-slideshow .card-slides { display: flex; transition: transform .45s ease; width: 100%; height: 220px; }
+.card-slideshow .card-slide { min-width: 100%; height: 100%; }
+.card-slideshow .card-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.card-slideshow .card-slide img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 12px; }
+
+/* Portrait images: avoid vertical cropping, show full image (letterboxed) */
+.card-slide.portrait img {
+  object-fit: contain;
+  background: rgba(0,0,0,0.04);
+}
+.card-slideshow .card-dots { position: absolute; left: 0; right: 0; bottom: 10px; display: flex; justify-content: center; gap: 8px; z-index: 5; }
+.card-slideshow .card-dots button { width: 8px; height: 8px; border-radius: 50%; border: none; background: rgba(255,255,255,0.6); padding: 0; cursor: pointer; }
+.card-slideshow .card-dots button.active { background: #fff; }
+
+@media (min-width: 900px) {
+  .card-slideshow .card-slides { height: 280px; }
+}
+
+@media (min-width: 1200px) {
+  .card-slideshow .card-slides { height: 320px; }
+}
+
+/* Inline itinerary accordion used inside cards */
+
 
 /* ensure any button inside a card sits at the card bottom regardless of content length */
 .card .btn {
@@ -420,6 +448,5 @@ header { max-height: 84px; overflow: visible; }
 @media (prefers-reduced-motion: reduce) {
   .slides { transition: none !important; }
 }
-
 
 
