@@ -1,7 +1,7 @@
 /* Variables */
 :root {
   --max: 1100px;
-  --brand: #e65fa8;
+  --brand: #7a134e; /* updated to match new logo RGB(87,21,58) */
   --dark: #1b1b1b;
   --muted: #666;
   --bg: #fff;
@@ -14,27 +14,11 @@ body {
   font-family: Inter, system-ui, Arial, sans-serif;
   color: var(--dark);
   line-height: 1.6;
-  /* repeating holiday doodle background provided by user */
-  --doodle-size: 300px;
-  /* place the image once across the page (non-repeating) with a translucent gradient above it */
-  background-image: url("../images/holiday_doodle.jpg"), linear-gradient(rgba(255,248,242,0.28), rgba(255,240,255,0.28));
-  /* show the doodle once across the full width (no repeat), gradient covers the whole page */
-  background-repeat: no-repeat, no-repeat;
-  background-size: 100% auto, cover;
-  background-attachment: scroll, fixed;
-  background-position: center top, center center;
+  /* solid background color for the site */
+  background-color: #e8e7e7;
 }
-
-/* subtle overlay above the background image to improve text contrast */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(rgba(0,0,0,0.38), rgba(0,0,0,0.06));
-  mix-blend-mode: multiply;
-  z-index: 1;
-}
+/* remove the dark overlay used for the doodle background */
+body::before { content: none; }
 
 /* ensure main content sits above the overlay */
 main { position: relative; z-index: 2; }
@@ -67,12 +51,18 @@ a { text-decoration: none; color: inherit; }
 header {
   position: sticky;
   top: 0;
-  /* warm sunrise gradient inspired by favicon */
-  background: linear-gradient(90deg, #ffd19a 0%, #ffb48c 50%, #e99fb3 100%);
-  color: #1b1b1b;
-  backdrop-filter: saturate(120%) blur(6px);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  /* white navbar with purple text */
+  background: #ffffff;
+  color: var(--brand);
   z-index: 10;
+}
+
+/* thin purple band directly under the white nav to preserve brand presence */
+header::after {
+  content: "";
+  display: block;
+  height: 10px;
+  background: linear-gradient(90deg, rgba(87,21,58,1) 0%, rgba(87,21,58,1) 100%);
 }
 nav {
   max-width: var(--max);
@@ -80,35 +70,50 @@ nav {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 16px;
-  min-height: 56px; /* keep nav compact so brand images can't expand the header */
+  padding: 10px 18px; /* balanced padding for a sleeker header */
+  height: 64px; /* fixed height for consistent layout */
+  box-sizing: border-box;
 }
 /* Brand: replace text with mark + wordmark images */
-nav .logo { display: flex; align-items: center; }
-nav .logo .brand { display: inline-flex; align-items: center; gap: 10px; }
+nav .logo { display: flex; align-items: center; height: 100%; }
+nav .logo .brand { display: inline-flex; align-items: center; gap: 10px; height: 100%; }
 nav .logo .brand img { display: block; height: auto; }
-nav .logo .logo-mark { width: 36px; height: 36px; object-fit: contain; }
+/* Use a fluid height so the logo scales across viewports but caps at a sensible size */
+/* Constrain the image to never exceed the height of the nav bar */
+nav .brand img.logo-mark {
+  height: 100%;
+  max-height: 44px; /* adjust down for a sleeker look */
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+/* keep the inline logo-mark consistent */
+nav .logo .logo-mark { height: 100%; width: auto; object-fit: contain; }
 nav .logo .logo-text { height: 28px; object-fit: contain; }
-nav .logo span { color: #e65fa8; }
+nav .logo span { color: var(--brand); }
 nav .links { margin-left: auto; display: flex; gap: 16px; font-weight: 600; }
 
 /* Nav link colors on the warm header */
 nav .links a {
-  color: #1b1b1b;
-  padding: 8px 10px;
-  border-radius: 8px;
-  transition: background-color .18s ease, color .18s ease;
+  color: #fff;
+  background: var(--brand);
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: background-color .18s ease, color .18s ease, transform .08s ease;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Visual separation between nav items to make them distinct */
 nav .links a + a {
   margin-left: 8px;
   padding-left: 18px; /* extra left padding to create breathing room */
-  border-left: 1px solid rgba(0,0,0,0.06);
+  border-left: 1px solid rgba(87,21,58,0.06);
 }
 
-nav .links a:hover { background: rgba(0,0,0,0.04); color: #6b2552; }
+nav .links a:hover { filter: brightness(0.92); transform: translateY(-1px); }
 
 /* Hero */
 .hero {
@@ -324,7 +329,7 @@ section#how > p.muted {
 }
 
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.step { border: 1px dashed #f0a2c8; border-radius: 16px; padding: 14px; background: #fff; }
+.step { border: 1px dashed rgba(87,21,58,0.12); border-radius: 16px; padding: 14px; background: #fff; }
 
 .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
 
@@ -354,7 +359,7 @@ section#how > p.muted {
 .form-card label { margin-bottom: 10px; display: block; }
 .form-card .btn.primary { min-width: 220px; }
 
-.cta { background: linear-gradient(180deg,#fff, #ffe6f2); border-top: 1px solid #fee0f0; }
+.cta { background: linear-gradient(180deg,#fff, rgba(87,21,58,0.06)); border-top: 1px solid rgba(87,21,58,0.06); }
 .cta .wrap { max-width: var(--max); margin: 0 auto; padding: 24px 16px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; }
 
 footer { border-top: 1px solid #eee; }
@@ -457,30 +462,27 @@ footer .wrap { max-width: var(--max); margin: 0 auto; padding: 16px; color: #555
 }
 
 @media (min-width: 981px) {
-  nav .logo .logo-mark { width: 40px; height: 40px; }
+  nav .logo .logo-mark { width: 48px; height: 48px; }
   nav .logo .logo-text { height: 34px; }
 }
 
 /* Stronger constraints to prevent oversized logos from pushing header height */
-nav .brand img {
-  max-height: 48px;
-  height: auto;
-  width: auto;
-  display: block;
-}
+/* remove hard-forced sizes: rely on clamp() above for flexible scaling */
 
 /* Ensure the brand vertically centers even if text size changes */
 nav .logo, nav .brand { align-items: center; }
 
 /* If an image still grows unexpectedly, cap the header */
-header { max-height: 84px; overflow: visible; }
+/* allow a taller header to prevent clipping when a larger brand image is used */
+/* cap header reasonably to avoid clipping while keeping it compact */
+header { max-height: 92px; overflow: visible; }
 
 /* Ensure slides always cover their container (prevents black bars) */
 .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* Hero-specific button styles so non-primary buttons remain visible over images */
-.hero .btn { color: #fff; }
-.hero .btn:not(.primary) { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); color: #fff; }
+.hero .btn { color: #fff; background: var(--brand); border-color: var(--brand); }
+.hero .btn:not(.primary) { background: var(--brand); border-color: var(--brand); color: #fff; }
 
 /* For mobile we keep a smaller hero height but let JS fine-tune exact height to match images */
 @media (max-width: 600px) {
